@@ -1,18 +1,7 @@
-import React from "react";
-import TestRenderer from "react-test-renderer";
+import env from "../";
 
-function MyComponent() {
-  return <h1>Hello World</h1>;
-}
-
-describe("ReactRendering", () => {
-  it("behaves like JSDOM", () => {
-    const renderer = TestRenderer.create(<MyComponent />);
-
-    expect(renderer.toJSON()).toMatchInlineSnapshot(`
-      <h1>
-        Hello World
-      </h1>
-    `);
+describe("Unit Tests", () => {
+  it("exports an environment", () => {
+    expect(env).toBeTruthy();
   });
 });
