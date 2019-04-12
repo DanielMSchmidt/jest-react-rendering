@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest"
   },
-  "author": "",
+  "author": "DanielMSchmidt<danielmschmidt92@gmail.com>",
+  "homepage": "https://github.com/owner/project#readmehttps://github.com/DanielMSchmidt/jest-react-rendering/tree/master/packages/jest-environment-react-rendering",
   "license": "MIT",
   "peerDependencies": {
     "jest-environment-jsdom": ">= 24.0.0",

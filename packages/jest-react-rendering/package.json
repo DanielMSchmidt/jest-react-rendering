@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo 'no tests'"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "DanielMSchmidt<danielmschmidt92@gmail.com>",
+  "homepage": "https://github.com/DanielMSchmidt/jest-react-rendering/tree/master/packages/jest-react-rendering",
+  "license": "MIT"
 }
