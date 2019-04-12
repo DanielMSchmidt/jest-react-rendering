@@ -1,4 +1,4 @@
-# Jest Environment React Rendering
+# Jest Environment React Rendering [![Build Status](https://travis-ci.com/DanielMSchmidt/jest-environment-react-rendering.svg?branch=master)](https://travis-ci.com/DanielMSchmidt/jest-environment-react-rendering)
 
 This is a jest environment extending [`jest-environment-jsdom`](https://github.com/facebook/jest/tree/master/packages/jest-environment-jsdom) with helpers inspired by [maicki/why-did-you-update](https://github.com/maicki/why-did-you-update).
 
