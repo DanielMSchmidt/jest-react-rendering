@@ -1,6 +1,6 @@
 {
   "name": "tests-for-jest-environment",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.2",
   "private": true,
   "description": "",
   "main": "index.js",
@@ -11,6 +11,6 @@
   "license": "MIT",
   "devDependencies": {
     "jest": "^24.7.1",
-    "jest-environment-react-rendering": "^0.0.1-alpha.1"
+    "jest-environment-react-rendering": "^0.0.1-alpha.2"
   }
 }
