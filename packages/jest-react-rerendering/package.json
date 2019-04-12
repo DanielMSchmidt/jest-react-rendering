@@ -1,5 +1,5 @@
 {
-  "name": "jest-react-rendering",
+  "name": "jest-react-rerendering",
   "version": "0.0.1-alpha.3",
   "description": "Test if a React component rerenders in a given scenario",
   "main": "src/index.js",

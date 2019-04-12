@@ -3,7 +3,7 @@
  */
 const React = global.React;
 import TestRenderer from "react-test-renderer";
-import "jest-react-rerenders";
+import "jest-react-rerendering";
 
 function MyComponent() {
   return <h1>Hello World</h1>;
