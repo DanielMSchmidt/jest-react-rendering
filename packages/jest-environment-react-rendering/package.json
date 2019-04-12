@@ -12,6 +12,9 @@
     "jest-environment-jsdom": ">= 24.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.7.1",
     "jest": "^24.7.1",
     "jest-environment-jsdom": "^24.7.1",
     "lerna": "^3.13.2",

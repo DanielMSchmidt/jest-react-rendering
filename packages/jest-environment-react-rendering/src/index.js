@@ -1,3 +1,5 @@
-import JSDOMEnvironment from "jest-environment-jsdom";
+const JSDOMEnvironment = require("jest-environment-jsdom");
 
-export default class ReactRendering extends JSDOMEnvironment {}
+class ReactRendering extends JSDOMEnvironment {}
+
+module.exports = ReactRendering;
