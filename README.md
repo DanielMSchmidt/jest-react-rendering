@@ -9,11 +9,13 @@ The goal is to make rendering improvements testable.
 `npm install --save-dev jest-environment-react-rendering`
 
 As this environment mutates React you don't want to use it everywhere, we suggest you enable it per test case via a comment.
+We bring a mutated copy of React which you need to use, therefore please don't do `import React from "react"` in your tests.
 
 ```js
 /**
  * @jest-environment react-rendering
  */
+const React = global.React;
 ```
 
 ## Usage
@@ -22,34 +24,49 @@ As this environment mutates React you don't want to use it everywhere, we sugges
 /**
  * @jest-environment react-rendering
  */
+const React = global.React;
 import TestRenderer from "react-test-renderer";
 
-import MyComponent from "../";
+class Counter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0
+    };
 
-describe("MyComponent", () => {
-  it("renders the expected output", () => {
-    expect(TestRenderer.create(<MyComponent />).toJSON()).toMatchSnapshot();
+    this.increment = this.increment.bind(this);
+  }
+
+  increment() {
+    this.setState(state => ({
+      count: state.count + 1
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.count}</h1>
+        <button onClick={this.increment}>Inc</button>
+      </div>
+    );
+  }
+}
+
+describe("Counter", () => {
+  it("does not update on initial render", () => {
+    TestRenderer.create(<Counter />);
+
+    expect(MyComponent).toBeUpdatedTimes(0);
   });
 
-  it("rerenders when a prop changes", () => {
-    TestRenderer.create(<MyComponent myProp="42" />);
-    expect(MyComponent).toHaveRenderedTimes(1);
-    TestRenderer.create(<MyComponent myProp="23" />);
-    expect(MyComponent).toHaveRenderedTimes(2);
-  });
+  it("updates when the button is clicked", () => {
+    const renderer = TestRenderer.create(<Counter />);
+    const instance = renderer.root;
+    const button = instance.find(el => el.type == "button");
+    button.props.onClick();
 
-  it("does not rerender if props stay the same", () => {
-    TestRenderer.create(<MyComponent myProp="23" />);
-    expect(MyComponent).toHaveRenderedTimes(1);
-    TestRenderer.create(<MyComponent myProp="23" />);
-    expect(MyComponent).toHaveRenderedTimes(1);
-  });
-
-  it("does not rerender if the ignored prop changes", () => {
-    TestRenderer.create(<MyComponent myProp="23" ignoredProp="foo" />);
-    expect(MyComponent).toHaveRenderedTimes(1);
-    TestRenderer.create(<MyComponent myProp="23" ignoredProp="foosball" />);
-    expect(MyComponent).toHaveRenderedTimes(1);
+    expect(Counter).toBeUpdatedTimes(1);
   });
 });
 ```

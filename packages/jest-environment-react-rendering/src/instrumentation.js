@@ -13,16 +13,15 @@ const memoized = (map, key, fn) => {
   return ret;
 };
 
-function createComponentDidUpdate() {
+function createComponentDidUpdate(callMap, Component) {
   return function componentDidUpdate(prevProps, prevState) {
-    console.log("COMPONENT DID UPDATE!!!");
+    callMap[Component] = (callMap[Component] || 0) + 1;
   };
 }
 
 // Creates a wrapper for a React class component
-const createClassComponent = (ctor, displayName) => {
-  console.log("createClassComponent", ctor);
-  let cdu = createComponentDidUpdate();
+const createClassComponent = (callMap, ctor, displayName) => {
+  let cdu = createComponentDidUpdate(callMap, ctor);
 
   // the wrapper class extends the original class,
   // and overwrites its `componentDidUpdate` method,
@@ -49,8 +48,13 @@ const createClassComponent = (ctor, displayName) => {
 };
 
 // Creates a wrapper for a React functional component
-const createFunctionalComponent = (ctor, displayName, ReactComponent) => {
-  let cdu = createComponentDidUpdate(displayName);
+const createFunctionalComponent = (
+  callMap,
+  ctor,
+  displayName,
+  ReactComponent
+) => {
+  let cdu = createComponentDidUpdate(callMap, ctor);
 
   // We call the original function in the render() method,
   // and implement `componentDidUpdate` for `why-did-you-update`
@@ -103,13 +107,13 @@ function instrumentReact(React, callMap) {
         // If the constructor has a `render` method in its prototype,
         // we're dealing with a class component
         ctor = memoized(memo, ctor, () =>
-          createClassComponent(ctor, displayName)
+          createClassComponent(callMap, ctor, displayName)
         );
       } else {
         // If the constructor function has no `render`,
         // it must be a simple functioanl component.
         ctor = memoized(memo, ctor, () =>
-          createFunctionalComponent(ctor, displayName, React.Component)
+          createFunctionalComponent(callMap, ctor, displayName, React.Component)
         );
       }
     }
