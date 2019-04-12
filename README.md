@@ -1,4 +1,4 @@
-# Jest Environment React Rendering [![Build Status](https://travis-ci.com/DanielMSchmidt/jest-environment-react-rendering.svg?branch=master)](https://travis-ci.com/DanielMSchmidt/jest-environment-react-rendering)
+# Jest Environment React Rendering [![Build Status](https://travis-ci.com/DanielMSchmidt/jest-react-rendering.svg?branch=master)](https://travis-ci.com/DanielMSchmidt/jest-react-rendering)
 
 This is a jest environment extending [`jest-environment-jsdom`](https://github.com/facebook/jest/tree/master/packages/jest-environment-jsdom) with helpers inspired by [maicki/why-did-you-update](https://github.com/maicki/why-did-you-update).
 
@@ -6,7 +6,7 @@ The goal is to make rendering improvements testable.
 
 ## Setup
 
-`npm install --save-dev jest-environment-react-rendering`
+`npm install --save-dev jest-react-rendering`
 
 As this environment mutates React you don't want to use it everywhere, we suggest you enable it per test case via a comment.
 We bring a mutated copy of React which you need to use, therefore please don't do `import React from "react"` in your tests.
