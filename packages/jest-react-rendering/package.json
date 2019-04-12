@@ -1,0 +1,11 @@
+{
+  "name": "jest-react-rendering",
+  "version": "0.0.0",
+  "description": "Test if a React component rerenders in a given scenario",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo 'no tests'"
+  },
+  "author": "",
+  "license": "ISC"
+}
