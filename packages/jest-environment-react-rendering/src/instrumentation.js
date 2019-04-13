@@ -13,15 +13,15 @@ const memoized = (map, key, fn) => {
   return ret;
 };
 
-function createComponentDidUpdate(callMap, Component) {
+function createComponentDidUpdate(registry, Component) {
   return function componentDidUpdate(prevProps, prevState) {
-    callMap[Component] = (callMap[Component] || 0) + 1;
+    registry.registerUpdate(Component, prevProps, prevState);
   };
 }
 
 // Creates a wrapper for a React class component
-const createClassComponent = (callMap, ctor, displayName) => {
-  let cdu = createComponentDidUpdate(callMap, ctor);
+const createClassComponent = (registry, ctor, displayName) => {
+  let cdu = createComponentDidUpdate(registry, ctor);
 
   // the wrapper class extends the original class,
   // and overwrites its `componentDidUpdate` method,
@@ -49,12 +49,12 @@ const createClassComponent = (callMap, ctor, displayName) => {
 
 // Creates a wrapper for a React functional component
 const createFunctionalComponent = (
-  callMap,
+  registry,
   ctor,
   displayName,
   ReactComponent
 ) => {
-  let cdu = createComponentDidUpdate(callMap, ctor);
+  let cdu = createComponentDidUpdate(registry, ctor);
 
   // We call the original function in the render() method,
   // and implement `componentDidUpdate` for `why-did-you-update`
@@ -83,7 +83,7 @@ const createFunctionalComponent = (
  * @param {React} React
  * @returns {Object} map of calls, the key is the component, the value the # of calls
  */
-function instrumentReact(React, callMap) {
+function instrumentReact(React, registry) {
   // Store the original `React.createElement`,
   // which we're going to reference in our own implementation
   // and which we put back when we remove `whyDidYouUpdate` from React.
@@ -107,13 +107,18 @@ function instrumentReact(React, callMap) {
         // If the constructor has a `render` method in its prototype,
         // we're dealing with a class component
         ctor = memoized(memo, ctor, () =>
-          createClassComponent(callMap, ctor, displayName)
+          createClassComponent(registry, ctor, displayName)
         );
       } else {
         // If the constructor function has no `render`,
         // it must be a simple functioanl component.
         ctor = memoized(memo, ctor, () =>
-          createFunctionalComponent(callMap, ctor, displayName, React.Component)
+          createFunctionalComponent(
+            registry,
+            ctor,
+            displayName,
+            React.Component
+          )
         );
       }
     }

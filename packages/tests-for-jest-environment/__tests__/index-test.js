@@ -28,7 +28,7 @@ class Counter extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.state.count}</h1>
+        <MyComponent />
         <button onClick={this.increment}>Inc</button>
       </div>
     );
@@ -36,6 +36,10 @@ class Counter extends React.Component {
 }
 
 describe("Integration tests", () => {
+  beforeEach(() => {
+    expect().toResetRenderCount();
+  });
+
   it("behaves like JSDOM", () => {
     const renderer = TestRenderer.create(<MyComponent />);
 
@@ -52,12 +56,21 @@ describe("Integration tests", () => {
     expect(MyComponent).toBeUpdatedTimes(0);
   });
 
-  it("notices component updates", () => {
+  it("notices component updates for class components", () => {
     const renderer = TestRenderer.create(<Counter />);
     const instance = renderer.root;
     const button = instance.find(el => el.type == "button");
     button.props.onClick();
 
     expect(Counter).toBeUpdatedTimes(1);
+  });
+
+  it("notices component updates for functional components", () => {
+    const renderer = TestRenderer.create(<Counter />);
+    const instance = renderer.root;
+    const button = instance.find(el => el.type == "button");
+    button.props.onClick();
+
+    expect(MyComponent).toBeUpdatedTimes(1);
   });
 });
