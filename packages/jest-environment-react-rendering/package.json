@@ -18,7 +18,7 @@
     "@babel/preset-react": "7.0.0",
     "babel-jest": "24.7.1",
     "jest": "24.7.1",
-    "jest-environment-jsdom": "24.7.1",
+    "jest-environment-jsdom": "24.9.0",
     "lerna": "3.13.2",
     "prettier": "1.16.4",
     "react": "16.8.6",
