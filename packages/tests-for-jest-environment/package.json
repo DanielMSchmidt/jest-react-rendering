@@ -16,7 +16,7 @@
     "babel-jest": "24.7.1",
     "jest": "24.7.1",
     "jest-environment-react-rendering": "^0.0.1-alpha.7",
-    "jest-react-rendering": "0.0.1-alpha.3",
+    "jest-react-rendering": "0.0.1-alpha.6",
     "react": "16.8.6",
     "react-test-renderer": "16.8.6"
   }
