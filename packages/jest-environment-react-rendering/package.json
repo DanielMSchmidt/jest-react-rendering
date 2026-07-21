@@ -22,6 +22,6 @@
     "lerna": "3.13.2",
     "prettier": "1.16.4",
     "react": "16.8.6",
-    "react-test-renderer": "16.8.6"
+    "react-test-renderer": "16.14.0"
   }
 }
